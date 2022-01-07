@@ -8,8 +8,11 @@ import java.util.Set;
 
 import javax.annotation.processing.AbstractProcessor;
 import javax.annotation.processing.ProcessingEnvironment;
+import javax.annotation.processing.Processor;
 import javax.annotation.processing.RoundEnvironment;
 import javax.annotation.processing.SupportedAnnotationTypes;
+import javax.annotation.processing.SupportedSourceVersion;
+import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.TypeElement;
@@ -19,8 +22,9 @@ import javax.lang.model.element.TypeElement;
  *
  * 注意所有的注解处理器必须有一个无参的构造函数，默认不写就行
  */
-@AutoService(Process.class)
+@AutoService(Processor.class)
 @SupportedAnnotationTypes("com.mrcd.router.annotation.Router")
+@SupportedSourceVersion(value = SourceVersion.RELEASE_8)
 public class RouterProcessor extends AbstractProcessor {
 
     /**
@@ -44,6 +48,8 @@ public class RouterProcessor extends AbstractProcessor {
      */
     @Override public boolean process(final Set<? extends TypeElement> annotations, final RoundEnvironment roundEnv) {
         // roundEnv.getElementsAnnotatedWith()返回使用给定注解类型的元素
+        System.out.println("-------------process-----------------");
+
         for (Element element : roundEnv.getElementsAnnotatedWith(Router.class)) {
             System.out.println("------------------------------");
             // 判断元素的类型为Class
