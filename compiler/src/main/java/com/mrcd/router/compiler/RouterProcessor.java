@@ -22,7 +22,7 @@ import javax.lang.model.element.TypeElement;
  *
  * 注意所有的注解处理器必须有一个无参的构造函数，默认不写就行
  */
-@AutoService(Processor.class)
+// @AutoService(Processor.class)
 @SupportedAnnotationTypes("com.mrcd.router.annotation.Router")
 @SupportedSourceVersion(value = SourceVersion.RELEASE_8)
 public class RouterProcessor extends AbstractProcessor {
@@ -34,8 +34,6 @@ public class RouterProcessor extends AbstractProcessor {
      */
     @Override public synchronized void init(final ProcessingEnvironment processingEnv) {
         super.init(processingEnv);
-        System.out.println("-------------test-----------------");
-
     }
 
     /**
@@ -48,8 +46,6 @@ public class RouterProcessor extends AbstractProcessor {
      */
     @Override public boolean process(final Set<? extends TypeElement> annotations, final RoundEnvironment roundEnv) {
         // roundEnv.getElementsAnnotatedWith()返回使用给定注解类型的元素
-        System.out.println("-------------process-----------------");
-
         for (Element element : roundEnv.getElementsAnnotatedWith(Router.class)) {
             System.out.println("------------------------------");
             // 判断元素的类型为Class
@@ -68,13 +64,13 @@ public class RouterProcessor extends AbstractProcessor {
     }
 
     /**
-     * 【这里必须指定】此函数表明注解处理器是注册给哪个注解的。
+     *  此函数表明注解处理器是注册给哪个注解的。
      *  它的返回值是一个字符串的集合，包含本处理器想要处理的注解类型的合法全称（xxx.class.getCanonicalName()）
      * @return  注解器所支持的注解类型集合，如果没有这样的类型，则返回一个空集合
      */
-//    @Override public Set<String> getSupportedAnnotationTypes() {
-//        final Set<String> result = new HashSet<>();
-//        result.add(Router.class.getCanonicalName());
-//        return result;
-//    }
+    @Override public Set<String> getSupportedAnnotationTypes() {
+        final Set<String> result = new HashSet<>();
+        result.add(Router.class.getCanonicalName());
+        return result;
+    }
 }
